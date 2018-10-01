@@ -24,6 +24,7 @@ function TransomGraceful() {
 	this.initialize = function (server, options) {
 		return new Promise(function (resolve, reject) {
 			debug('initializing transomGraceful');
+			options = options || {};
 
 			const signals = options.signals || ['SIGINT', 'SIGTERM'];
 			const timeout = options.timeout || 1000;
