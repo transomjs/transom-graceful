@@ -1,7 +1,7 @@
 "use strict";
 const expect = require('chai').expect;
 const sinon = require('sinon');
-const TransomGraceful = require('../lib/graceful');
+const TransomGraceful = require('../index');
 
 describe('TransomGraceful', function () {
 
