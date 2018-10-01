@@ -8,6 +8,9 @@
     "test": "cross-env NODE_ENV=test nyc mocha",
     "coveralls": "nyc report --reporter=text-lcov | coveralls"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/transomjs/transom-graceful.git"
