@@ -1,5 +1,5 @@
 # transom-graceful
-Add gracefult start-up and shutdown to your server-side Transomjs APIs.
+Add graceful shutdown to your server-side Transomjs APIs.
 
 [![Build Status](https://travis-ci.org/transomjs/transom-graceful.svg?branch=master)](https://travis-ci.org/transomjs/transom-graceful)
 
