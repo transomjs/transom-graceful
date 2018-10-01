@@ -1,0 +1,47 @@
+{
+  "name": "@transomjs/transom-graceful",
+  "version": "1.0.0",
+  "description": "Add graceful shutdown to server-side Transom APIs",
+  "main": "index.js",
+  "scripts": {
+    "deploy": "np",
+    "test": "cross-env NODE_ENV=test nyc mocha",
+    "coveralls": "nyc report --reporter=text-lcov | coveralls"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/transomjs/transom-graceful.git"
+  },
+  "keywords": [
+    "graceful",
+    "shutdown"
+  ],
+  "author": "Mark Voorberg <mark@binaryops.ca>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/transomjs/transom-graceful/issues"
+  },
+  "homepage": "https://github.com/transomjs/transom-graceful#readme",
+  "engines": {
+    "node": ">= 6"
+  },
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "coveralls": "^3.0.0",
+    "cross-env": "^5.2.0",
+    "mocha": "^5.2.0",
+    "mocha-lcov-reporter": "^1.3.0",
+    "np": "^3.0.4",
+    "nyc": "^13.0.1",
+    "shelljs": "^0.8.2",
+    "sinon": "^6.3.4"
+  },
+  "peerDependencies": {
+    "@transomjs/transom-core": "^1.0.8"
+  },
+  "dependencies": {
+    "debug": "^4.0.1",
+    "es6-promisify": "^6.0.0",
+    "stoppable": "^1.0.6"
+  }
+}
