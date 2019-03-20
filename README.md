@@ -10,6 +10,27 @@ Add graceful shutdown to your server-side Transomjs APIs.
 $ npm install transom-graceful
 ```
 
+## What are Readiness & Liveness Probes?
+Liveness Probes tell Kubernetes your application is still alive. 
+If the liveness probes fail, Kubernetes will kill the pod and bring up a new one.
+
+Readiness Probes tell Kubernetes that your pod is ready to receive traffic.
+
+
+## How to use health probes
+In the most general sense, make your probes as dumb as possible, simply returning a 200 / success response. Don't make them especially onerous as they get called repeatedly while your application is running.
+
+During app startup, a readiness probe can wait until the database connection pool is created before returning success, if the database isn't up, your app instance will not be able to service client requests.
+
+A liveness probe should only return a 500 / failure response if restarting the instance (killing and replacing) will fix the problem. Working around a memory leak seems like the most likely scenario here. Do not return a failure response if your database is unavailable as it will result in high CPU as your containers are constantly restarted.
+
+
+E.g.
+If your database is down and all the instances of your API are returning not-ready, the user of your app will get a 503 / 500
+error indicating that your app is unavailable, when you could have handled it gracefully some other way. 
+
+
+
 ## Usage
 ```javascript
 const Transom = require('@transomjs/transom-core');
