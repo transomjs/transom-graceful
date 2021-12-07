@@ -117,8 +117,8 @@ function TransomGraceful() {
           }
         };
       }
-	  
-      signals.map((signal) => {
+
+      signals.forEach((signal) => {
         process.on(signal, gracefulCleanup(signal));
       });
 
