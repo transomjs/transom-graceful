@@ -1,6 +1,6 @@
 {
   "name": "@transomjs/transom-graceful",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Add graceful shutdown to server-side Transom APIs",
   "main": "index.js",
   "type": "commonjs",
