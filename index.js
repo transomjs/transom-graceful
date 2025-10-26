@@ -1,7 +1,6 @@
 "use strict";
 const debug = require("debug")("transom:graceful");
 const { promisify } = require("es6-promisify");
-const stoppable = require("stoppable");
 
 function TransomGraceful() {
   let isStopping = false;
@@ -88,8 +87,39 @@ function TransomGraceful() {
 
       // Stop accepting new connections and closes existing, idle connections
       //  (including keep-alives) without killing requests that are in-flight.
-      stoppable(server.restify, timeout);
-      const serverStop = promisify(server.restify.stop).bind(server);
+      const underlyingServer = server.express || server.restify;
+      if (!underlyingServer) {
+        throw new Error('No server instance found - cannot set up graceful shutdown');
+      }
+      
+      let httpServer = null;
+      let serverStop;
+      
+      // Handle different server types (Express vs Restify)
+      if (typeof underlyingServer.stop === 'function') {
+        // This is likely a Restify server - it has a built-in stop method
+        serverStop = promisify(underlyingServer.stop).bind(underlyingServer);
+      } else if (typeof underlyingServer.close === 'function') {
+        // This is likely an HTTP server instance
+        serverStop = promisify(underlyingServer.close).bind(underlyingServer);
+      } else {
+        // This is likely an Express app - we need to capture the HTTP server when listen() is called
+        const originalListen = underlyingServer.listen.bind(underlyingServer);
+        underlyingServer.listen = function(...args) {
+          httpServer = originalListen(...args);
+          return httpServer;
+        };
+        
+        serverStop = () => {
+          return new Promise((resolve) => {
+            if (httpServer && typeof httpServer.close === 'function') {
+              httpServer.close(resolve);
+            } else {
+              resolve();
+            }
+          });
+        };
+      }
 
       function gracefulCleanup(signal) {
         return function () {
