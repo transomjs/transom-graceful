@@ -45,7 +45,6 @@
   },
   "dependencies": {
     "debug": "^4.3.4",
-    "es6-promisify": "^7.0.0",
-    "stoppable": "^1.1.0"
+    "es6-promisify": "^7.0.0"
   }
 }
