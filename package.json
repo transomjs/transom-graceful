@@ -41,7 +41,7 @@
     "sinon": "^17.0.1"
   },
   "peerDependencies": {
-    "@transomjs/transom-core": "^3.0.0"
+    "@transomjs/transom-core": "5.0.1-0"
   },
   "dependencies": {
     "debug": "^4.3.4",
